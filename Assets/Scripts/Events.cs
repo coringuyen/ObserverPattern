@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Events : MonoBehaviour
+static public class Events
 {
-    Publisher _publidh;
-
-    void Start()
+    static public void printStuff()
     {
-        _publidh = GetComponent<Publisher>();
-    }
-
-	void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            _publidh.publisher("Key A been press");
-        }
+        Debug.Log("printing stuff");
     }
 }
+//{
+//    Publisher pub;
+
+//    void Start()
+//    {
+//        pub = GetComponent<Publisher>();
+//    }
+
+//	void Update()
+//    {
+//        if(Input.GetKeyDown(KeyCode.A))
+//        {
+//            pub.publisher("Key A been press");
+//        }
+//    }
