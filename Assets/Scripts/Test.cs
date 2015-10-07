@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Test : MonoBehaviour {
 
-    EventSystem events = new EventSystem();
+    //EventSystem events = new EventSystem();
     
     public AudioSource manager;
     public AudioClip musicA;
@@ -17,8 +17,8 @@ public class Test : MonoBehaviour {
 
 	void Start ()
     {
-        events.subscriber("Key A", KeyA);
-        events.subscriber("Key S", KeyS);
+        EventSystem.subscribe("Key A", KeyA);
+        EventSystem.subscribe("Key S", KeyS);
 	}
 	
 	void KeyA()
@@ -31,16 +31,5 @@ public class Test : MonoBehaviour {
         playSound(musicS);
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            events.publish("Key A");
-        }
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            events.publish("Key S");
-        }
-    }
 }
