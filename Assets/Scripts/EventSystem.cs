@@ -9,22 +9,21 @@ public static class EventSystem
 
     static public void subscribe(string message, Callback function)
     {
-        //if the key does not exist then add it to the dictionary
-        if (!events.ContainsKey(message))
+        //if the key already exists you must add the callback "multicast" to the entry
+        if(events.ContainsKey(message))
         {
-            events.Add(message, function);
+            events[message] += function;
         }
 
-        //if the key already exists you must add the callback "multicast" to the entry
-        else if(events.ContainsKey(message))
-        {
-            
-        }
+        //if the key does not exist then add it to the dictionary
+        else events.Add(message, function);
     }
 
     static public void publish(string publish)
     {
         Debug.Log(publish);
+
+        // execute the subs
         if(events.ContainsKey(publish))
         {
             events[publish]();
