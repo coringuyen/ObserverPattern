@@ -12,8 +12,7 @@ public static class EventSystem
     static Dictionary<string, Delegate> events = new Dictionary<string, Delegate>();
 
     /// <summary>
-    /// Subscriber can subscribe to a message that they are interest 
-    /// plus what they wanted to do when the message is published
+    /// Add this pair of Tkey, Tvalue to the Dictionary
     /// </summary>
     /// <param string ="message"></param>
     /// <param delegate ="function"></param>
@@ -30,7 +29,7 @@ public static class EventSystem
 
 
     /// <summary>
-    /// Subscriber can remove themselve when they are not interested in this message anymore
+    /// Remove this pair of TKey, TValue from the Dictionary
     /// </summary>
     /// <param string ="message"></param>
     /// <param delegate ="function"></param>
@@ -43,7 +42,7 @@ public static class EventSystem
     }
 
     /// <summary>
-    /// Whenever publish is called all the subscriber will be execute
+    /// print the message and also will execute TValue of this message(TKey)
     /// </summary>
     /// <param string ="publish"></param>
     static public void publish(string publish)
