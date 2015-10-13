@@ -61,17 +61,21 @@ public class FSM<T>
         // if the key is exist then execute the delegate of that key
         if (transitionTable.ContainsKey(key_name))
         {
-            transitionTable[key_name]();
+            if(transitionTable[key_name] == null)
+            {
+                Debug.Log("None");
+            }
+            else transitionTable[key_name]();
 
             // now current state is the state that need to go to
             current_state = go;
-            Debug.Log("Current state: " + current_state.ToString());
+            //Debug.Log("Current state: " + current_state.ToString());
         }
 
         else // if not then let the user know that this transition is invalid
         {
             Debug.Log("Invalid Transition: " + key_name);
-            Debug.Log("Current state: " + current_state.ToString());
+            //Debug.Log("Current state: " + current_state.ToString());
         }
 
     }

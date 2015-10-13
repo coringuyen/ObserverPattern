@@ -12,10 +12,14 @@ public static class EventSystem
     static Dictionary<string, Delegate> events = new Dictionary<string, Delegate>();
 
     /// <summary>
-    /// Add this pair of Tkey, Tvalue to the Dictionary
+    /// Add this pair of message, function to the Dictionary
     /// </summary>
-    /// <param string ="message"></param>
-    /// <param delegate ="function"></param>
+    /// <param name="message">
+    /// the message to subscribe to
+    /// </param>
+    /// <param name="function">
+    /// the function to execute when the message is publish
+    /// </param>
     static public void subscribe(string message, Callback function)
     {
         //if the key already exists you must add the callback "multicast" to the entry
@@ -29,10 +33,14 @@ public static class EventSystem
 
 
     /// <summary>
-    /// Remove this pair of TKey, TValue from the Dictionary
+    /// Remove this pair of message, function from the Dictionary
     /// </summary>
-    /// <param string ="message"></param>
-    /// <param delegate ="function"></param>
+    /// <param name ="message">
+    /// the message to remove to
+    /// </param>
+    /// <param name ="function">
+    /// the function to remove to
+    /// </param>
     static public void removeSub(string message, Callback function)
     {
         if (events.ContainsKey(message))
@@ -42,17 +50,19 @@ public static class EventSystem
     }
 
     /// <summary>
-    /// print the message and also will execute TValue of this message(TKey)
+    /// print the message and also will execute function of this message
     /// </summary>
-    /// <param string ="publish"></param>
-    static public void publish(string publish)
+    /// <param name ="message">
+    /// message that need to publish
+    /// </param>
+    static public void publish(string message)
     {
-        Debug.Log(publish);
+        Debug.Log(message);
 
-        if(events.ContainsKey(publish))
+        if(events.ContainsKey(message))
         {
             // execute the subs
-            events[publish].DynamicInvoke();
+            events[message].DynamicInvoke();
         }
     }
 

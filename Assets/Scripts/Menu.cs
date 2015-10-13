@@ -5,14 +5,17 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    public Button Paused;
-    public Button Exit;
 
-    enum State { Init, Running, Paused, Exit }
+    enum State { Init, Idle, Attack, Special }
     FSM<State> _fsm;
+
+    //public EndTurn end;
+    Player player;
 
 	void Start()
     {
+        player = GetComponent<Player>();
+        //end = GetComponent<EndTurn>();
         _fsm = new FSM<State>();
         State[] states = (State[])Enum.GetValues(typeof(State));
         
@@ -22,32 +25,41 @@ public class Menu : MonoBehaviour
         }
 
         _fsm.current_state = State.Init;
-        _fsm.addTransition(State.Init, State.Running, init_to_run);
-        _fsm.addTransition(State.Running, State.Paused, run_to_pause);
-        //_fsm.addTransition(State.Paused, State.Running,);
-        //_fsm.addTransition(State.Paused, State.Exit,);
+        _fsm.addTransition(State.Init, State.Idle, null);
+        _fsm.addTransition(State.Idle, State.Attack, player.Attack);
+        _fsm.addTransition(State.Attack, State.Idle, null);
+        _fsm.addTransition(State.Idle, State.Special, player.Special);
+        _fsm.addTransition(State.Special, State.Idle, null);
 
-        auto();
-    }
-
-    void auto()
-    {
-        _fsm.ChangeState(State.Running);
+        auto_idle();
     }
 
-    public void onclick_run_to_paused()
+    void print_current()
     {
-        _fsm.ChangeState(State.Paused);
+        print(gameObject.name + _fsm.current_state.ToString());
     }
-         
-    void init_to_run()
+    public void auto_idle()
     {
-        Paused.gameObject.SetActive(true);
-        Exit.gameObject.SetActive(true);
+        if(_fsm.current_state == State.Idle)
+        {
+            _fsm.current_state = State.Idle;
+        }
+        else
+            _fsm.ChangeState(State.Idle);
+        print_current();
     }
 
-    void run_to_pause()
+    public void idle_to_attack()
     {
-        print("Pausing");
+        _fsm.ChangeState(State.Attack);
+        print_current();
     }
+
+    public void idle_to_special()
+    {
+        _fsm.ChangeState(State.Special);
+        print_current();
+    }
+
+   
 }

@@ -8,7 +8,6 @@ public class Publisher : MonoBehaviour
     
     void Start()
     {
-        Events.printStuff();
         sub = GetComponent<Subscriber>();
     }
    
